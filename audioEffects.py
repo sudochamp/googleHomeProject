@@ -2,7 +2,7 @@ from pysndfx import AudioEffectsChain
 from sys import argv
 from librosa import load
 import os
-script, dirname = argv
+file, dir = argv
 
 fx = (
     AudioEffectsChain()
@@ -13,10 +13,10 @@ fx = (
     .lowshelf()
 )
 
-subdirectories = os.listdir(dirname)
-subdirectories.pop(0)
+subdirectories = os.listdir(dir)
+subdirectories.pop()
 
-subdirectories = [dirname + "/" + subDirName for subDirName in subdirectories]
+subdirectories = [dir + "/" + subDirName for subDirName in subdirectories]
 
 
 input = '01-C.wav'
