@@ -2,9 +2,7 @@
 from pyAudioAnalysis import audioTrainTest as aT
 import os
 from sys import argv
-import magic
 
-magic.Magic(magic_file="C:\Windows\System32\magic1.dll")
 file, dir = argv
 
 subdirectories = os.listdir(dir)
