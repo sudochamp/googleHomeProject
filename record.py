@@ -1,5 +1,6 @@
 import pyaudio
 import wave
+import time
 import os
 from sys import argv
 
@@ -70,7 +71,7 @@ def record_main(argv):
     if not os.path.exists(path):
         os.makedirs(path)
 
-    print("Recording main command")
+    print("Recording main command...")
 
     for i in range(0, int(RATE / chunk * 3)):
         data = stream.read(chunk, exception_on_overflow=False)
@@ -89,7 +90,7 @@ def record_main(argv):
     wf.writeframes(b''.join(frames))
     wf.close()
 
-record("main")
+record_main("main")
 
 numberOfRecordings = 0
 
