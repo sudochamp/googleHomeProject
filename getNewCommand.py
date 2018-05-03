@@ -1,7 +1,7 @@
 import pyaudio
 import wave
+import aiy.voicehat
 import testModel
-import os
 
 def record(newCommand):
     FORMAT = pyaudio.paInt16
@@ -31,17 +31,19 @@ def record(newCommand):
     wf.writeframes(b''.join(frames))
     wf.close()
 
-
-
+status_ui = aiy.voicehat.get_status_ui()
+status_ui.status('starting')
 while True:
     try:
+        status_ui.status('ready')
         print("Ready...")
-        ask = raw_input("Go y/n?")
-        if ask == 'y':
-            newCommand = "newCommand"
-            record("newCommand")
+        button = aiy.voicehat.get_button()
+        button.wait_for_press()
+        status_ui.status('listening')
+        newCommand = "newCommand"
+        record("newCommand")
+
         testModel.findWinner("sampleData/newCommand.wav")
-        os.remove("sampleData/newCommand.wav")
     except Exception as e:
         print("Oops an exception occurred")
         print(e)
