@@ -95,7 +95,7 @@ record_main("main")
 numberOfRecordings = 0
 
 while numberOfRecordings < 4:
-    fileName = fileName + "_{}".format(numberOfRecordings)
+    fileName = fileName + "{}".format(numberOfRecordings)
     numberOfRecordings += 1
     record(fileName)
     if numberOfRecordings == 3:
