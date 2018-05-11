@@ -2,6 +2,7 @@ import pyaudio
 import wave
 import aiy.voicehat
 import testModel
+import os 
 
 def record(newCommand):
     FORMAT = pyaudio.paInt16 #
