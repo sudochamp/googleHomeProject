@@ -4,17 +4,17 @@ import aiy.voicehat
 import testModel
 
 def record(newCommand):
-    FORMAT = pyaudio.paInt16
-    chunk = 1024
-    RATE = 44100
+    FORMAT = pyaudio.paInt16 #
+    chunk = 1024 #
+    RATE = 44100 #Sample Rate
     frames = []
     p = pyaudio.PyAudio()
 
-    stream = p.open(format=FORMAT, channels=1, rate=RATE, input=True, frames_per_buffer=chunk)
+    stream = p.open(format=FORMAT, channels=1, rate=RATE, input=True, frames_per_buffer=chunk) #Starting the recording 
 
     print("Recording...")
 
-    for i in range(0, int(RATE / chunk * 3)):
+    for i in range(0, int(RATE / chunk * 3)): #Multiplying by 3 gives us 3 seconds of audio time, change that to get more seconds.
         data = stream.read(chunk, exception_on_overflow=False)
         frames.append(data)
 
@@ -42,8 +42,8 @@ while True:
         status_ui.status('listening')
         newCommand = "newCommand"
         record("newCommand")
-
         testModel.findWinner("sampleData/newCommand.wav")
+        os.remove("sampleData/newCommand.wav") #Deleting this file so it doesn't cause any issues down the line.
     except Exception as e:
         print("Oops an exception occurred")
         print(e)
