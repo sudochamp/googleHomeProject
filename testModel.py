@@ -5,9 +5,7 @@ import pyaudio
 import sys
 from pyAudioAnalysis import audioTrainTest as aT
 
-isSignificant = 0.3
-
-
+isSignificant = 0.36
 
 def findWinner(filename):
     #try different values.
@@ -15,13 +13,7 @@ def findWinner(filename):
     # P: list of probabilities
     Result, P, classNames = aT.fileClassification(filename, "svmModel", "svm")
     winner = np.argmax(P) #pick the result with the highest probability value.
-
-    # is the highest value found above the isSignificant threshold?
-    if P[winner] > isSignificant:
-      print("File: " +filename + " is in category: " + classNames[winner] + ", with probability: " + str(P[winner]))
-    else :
-      print("Can't classify sound: " + str(P))
-
+    
     class AudioFile:
         chunk = 1024
 
@@ -38,9 +30,17 @@ def findWinner(filename):
         def close(self):
             self.stream.close()
             self.p.terminate()
+    
+    if P[winner] > isSignificant:
+      print("File: " +filename + " is in category: " + classNames[winner] + ", with probability: " + str(P[winner]))
+      file = AudioFile("commands/" + classNames[winner] + ".wav")
+      file.play()
+    else :
+      print("Can't classify sound: " + str(P))
 
-    file = AudioFile("commands/" + classNames[winner] + ".wav")
-    file.play()
+
+
+
 
 if __name__=='__main__':
     sys.exit(findWinner(sys.argv[1]))
