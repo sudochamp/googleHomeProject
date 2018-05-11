@@ -38,9 +38,5 @@ def findWinner(filename):
     else :
       print("Can't classify sound: " + str(P))
 
-
-
-
-
 if __name__=='__main__':
     sys.exit(findWinner(sys.argv[1]))
